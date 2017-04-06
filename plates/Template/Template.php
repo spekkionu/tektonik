@@ -157,7 +157,7 @@ class Template
             if (isset($this->layoutName)) {
                 $layout = $this->engine->make($this->layoutName);
                 $layout->sections = array_merge($this->sections, array('content' => $content));
-                $content = $layout->render($this->layoutData);
+                $content = $layout->render(array_merge($this->data, $this->layoutData));
             }
 
             return $content;
@@ -286,7 +286,7 @@ class Template
      */
     public function insert($name, array $data = array())
     {
-        echo $this->engine->render($name, $data);
+        echo $this->engine->render($name, array_merge($this->data, $data));
     }
 
     /**
@@ -343,4 +343,20 @@ class Template
     {
         return $this->escape($string, $functions);
     }
+
+	/**
+	 * @return Name
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function replaceName( $name )
+	{
+		$this->name = new Name($this->engine, $name);
+	}
 }
