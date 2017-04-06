@@ -165,6 +165,11 @@ class Name {
 					return $path;
 				}
 			}
+			$directories = $this->getDefaultDirectory();
+			$directory   = array_shift( $directories );
+
+			return $directory . DIRECTORY_SEPARATOR . $this->file;
+
 		}
 		foreach ( $this->getDefaultDirectory() as $directory ) {
 			$path = $directory . DIRECTORY_SEPARATOR . 'plugin' . DIRECTORY_SEPARATOR . $this->folder->getName() . DIRECTORY_SEPARATOR . $this->file;
@@ -175,7 +180,7 @@ class Name {
 
 		$path = $this->folder->getPath() . DIRECTORY_SEPARATOR . $this->file;
 
-		if ( ! is_file( $path ) && $this->folder->getFallback()) {
+		if ( ! is_file( $path ) && $this->folder->getFallback() ) {
 			foreach ( $this->getDefaultDirectory() as $directory ) {
 				$path = $directory . DIRECTORY_SEPARATOR . $this->file;
 				if ( is_file( $path ) ) {
@@ -185,6 +190,7 @@ class Name {
 		}
 
 		return $path;
+
 	}
 
 	/**
