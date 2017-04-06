@@ -11,6 +11,8 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: tektonik
 */
 
+use Tektonik\Plates\Template\Params;
+
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 spl_autoload_register( function ( $class ) {
@@ -94,9 +96,17 @@ class Tektonik {
 	 * @param array  $params
 	 *
 	 * @return string
+	 * @throws \Throwable
+	 * @throws \Exception
 	 */
 	public static function fetch( $name, array $params = [] ) {
-		return self::instance()->render( $name, $params );
+
+		$template = self::instance()->make( $name );
+		do_action( 'tektonic_template', $template );
+		$obj = new Params( $params );
+		do_action( 'tektonic_render', $template, $obj );
+
+		return $template->render( $obj->getParams() );
 	}
 
 	/**
@@ -110,8 +120,11 @@ class Tektonik {
 	 *
 	 * @param string $name
 	 * @param array  $params
+	 *
+	 * @throws \Exception
+	 * @throws \Throwable
 	 */
 	public static function render( $name, array $params = [] ) {
-		echo self::instance()->render( $name, $params );
+		echo self::fetch( $name, $params );
 	}
 }
