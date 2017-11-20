@@ -33,7 +33,7 @@ class Params implements ArrayAccess, Countable, IteratorAggregate, Serializable 
 	 *
 	 * @param array $params The array of parameters.
 	 */
-	public function __construct( array $params = [] ) {
+	public function __construct( array $params = array() ) {
 		$this->params = $params;
 	}
 
@@ -92,7 +92,7 @@ class Params implements ArrayAccess, Countable, IteratorAggregate, Serializable 
 	 *
 	 * @param array $params The variable params.
 	 */
-	public function setParams( array $params = [] ) {
+	public function setParams( array $params = array() ) {
 		$this->params = $params;
 	}
 
@@ -101,7 +101,7 @@ class Params implements ArrayAccess, Countable, IteratorAggregate, Serializable 
 	 *
 	 * @param array $params The new params.
 	 */
-	public function merge( array $params = [] ) {
+	public function merge( array $params = array() ) {
 		$this->params = array_merge( $this->params, $params );
 	}
 

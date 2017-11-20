@@ -10,7 +10,6 @@ namespace Tektonik\Plates;
 use Tektonik\Plates\Extension\ExtensionInterface;
 use Tektonik\Plates\Template\Data;
 use Tektonik\Plates\Template\Directory;
-use Tektonik\Plates\Template\Extension;
 use Tektonik\Plates\Template\Folders;
 use Tektonik\Plates\Template\Func;
 use Tektonik\Plates\Template\Functions;
@@ -245,7 +244,7 @@ class Engine {
 	 *
 	 * @return Engine
 	 */
-	public function load_extensions( array $extensions = [] ) {
+	public function load_extensions( array $extensions = array() ) {
 		foreach ( $extensions as $extension ) {
 			$this->load_extension( $extension );
 		}
@@ -298,7 +297,7 @@ class Engine {
 	 *
 	 * @return string
 	 */
-	public function render( $name, array $data = [] ) {
+	public function render( $name, array $data = array() ) {
 		return $this->make( $name )->render( $data );
 	}
 }

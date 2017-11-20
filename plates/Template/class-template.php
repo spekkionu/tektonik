@@ -36,14 +36,14 @@ class Template {
 	 *
 	 * @var array
 	 */
-	protected $data = [];
+	protected $data = array();
 
 	/**
 	 * An array of section content.
 	 *
 	 * @var array
 	 */
-	protected $sections = [];
+	protected $sections = array();
 
 	/**
 	 * The name of the section currently being rendered.
@@ -141,7 +141,7 @@ class Template {
 	 * @throws InvalidArgumentException When template cannot be found.
 	 * @return string
 	 */
-	public function render( array $data = [] ) {
+	public function render( array $data = array() ) {
 		$this->data( $data );
 		unset( $data );
 		extract( $this->data, EXTR_OVERWRITE );
@@ -188,7 +188,7 @@ class Template {
 	 * @param  string $name The layout name.
 	 * @param  array  $data The variables to pass to the layout.
 	 */
-	public function layout( $name, array $data = [] ) {
+	public function layout( $name, array $data = array() ) {
 		$this->layout_name = $name;
 		$this->layout_data = $data;
 	}
@@ -279,7 +279,7 @@ class Template {
 	 *
 	 * @return string
 	 */
-	public function fetch( $name, array $data = [] ) {
+	public function fetch( $name, array $data = array() ) {
 		return $this->engine->render( $name, array_merge( $this->data, $data ) );
 	}
 
@@ -289,7 +289,7 @@ class Template {
 	 * @param  string $name The partial name.
 	 * @param  array  $data The variables to pass to the partial.
 	 */
-	public function insert( $name, array $data = [] ) {
+	public function insert( $name, array $data = array() ) {
 		echo $this->fetch( $name, $data );
 	}
 

@@ -41,13 +41,13 @@ class TektonikTest extends WP_UnitTestCase {
 	}
 
 	public function test_fetch_template() {
-		$content = Tektonik::fetch( 'template', [ 'name' => 'Steve' ] );
+		$content = Tektonik::fetch( 'template', array( 'name' => 'Steve' ) );
 		$this->assertEquals( 'Hello Steve', trim( $content ) );
 	}
 
 	public function test_render_template() {
 		ob_start();
-		Tektonik::render( 'template', [ 'name' => 'Bob' ] );
+		Tektonik::render( 'template', array( 'name' => 'Bob' ) );
 		$content = ob_get_clean();
 		$this->assertEquals( 'Hello Bob', trim( $content ) );
 	}
@@ -88,7 +88,7 @@ class TektonikTest extends WP_UnitTestCase {
 			$params->set('name', 'Bill');
 			return $params;
 		} );
-		$content = Tektonik::fetch( 'template', ['name' => 'Bob'] );
+		$content = Tektonik::fetch( 'template', array( 'name' => 'Bob' ) );
 		$this->assertEquals( 'Hello Bill', trim( $content ) );
 	}
 }

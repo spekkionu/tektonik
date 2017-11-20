@@ -49,7 +49,7 @@ class Tektonik {
 	 * @return array
 	 */
 	private static function get_default_template_directories() {
-		$directories = [];
+		$directories = array();
 		if ( is_dir( get_stylesheet_directory() . '/tektonik' ) ) {
 			$directories[] = get_stylesheet_directory() . '/tektonik';
 		}
@@ -92,7 +92,7 @@ class Tektonik {
 	 *
 	 * @return string
 	 */
-	public static function fetch( $name, array $params = [] ) {
+	public static function fetch( $name, array $params = array() ) {
 		$template = self::instance()->make( $name );
 		$template = apply_filters( 'tektonik_template', $template );
 
@@ -114,7 +114,7 @@ class Tektonik {
 	 * @param string $name The template to render.
 	 * @param array  $params The parameters to pass to the template.
 	 */
-	public static function render( $name, array $params = [] ) {
+	public static function render( $name, array $params = array() ) {
 		echo self::fetch( $name, $params );
 	}
 }

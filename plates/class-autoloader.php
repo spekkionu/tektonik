@@ -17,7 +17,7 @@ class Autoloader {
 	 *
 	 * @var array
 	 */
-	private static $classes = [
+	private static $classes = array(
 		'Tektonik\\Plates\\Engine'                        => __DIR__ . DIRECTORY_SEPARATOR . 'class-engine.php',
 		'Tektonik\\Plates\\Extension\\ExtensionInterface' => __DIR__ . DIRECTORY_SEPARATOR . 'Extension' . DIRECTORY_SEPARATOR . 'class-extensioninterface.php',
 		'Tektonik\\Plates\\Template\\Data'                => __DIR__ . DIRECTORY_SEPARATOR . 'Template' . DIRECTORY_SEPARATOR . 'class-data.php',
@@ -29,7 +29,7 @@ class Autoloader {
 		'Tektonik\\Plates\\Template\\Name'                => __DIR__ . DIRECTORY_SEPARATOR . 'Template' . DIRECTORY_SEPARATOR . 'class-name.php',
 		'Tektonik\\Plates\\Template\\Params'              => __DIR__ . DIRECTORY_SEPARATOR . 'Template' . DIRECTORY_SEPARATOR . 'class-params.php',
 		'Tektonik\\Plates\\Template\\Template'            => __DIR__ . DIRECTORY_SEPARATOR . 'Template' . DIRECTORY_SEPARATOR . 'class-template.php',
-	];
+	);
 
 	/**
 	 * Class Constructor
