@@ -162,7 +162,7 @@ class Template {
 
 			if ( isset( $this->layout_name ) ) {
 				$layout           = $this->engine->make( $this->layout_name );
-				$layout->sections = array_merge( $this->sections, [ 'content' => $content ] );
+				$layout->sections = array_merge( $this->sections, array( 'content' => $content ) );
 				$content          = $layout->render( array_merge( $this->data, $this->layout_data ) );
 			}
 
