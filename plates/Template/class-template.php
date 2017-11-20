@@ -305,7 +305,7 @@ class Template {
 	public function batch( $var, $functions ) {
 		foreach ( explode( '|', $functions ) as $function ) {
 			if ( $this->engine->does_function_exist( $function ) ) {
-				$var = call_user_func( [ $this, $function ], $var );
+				$var = call_user_func( array( $this, $function ), $var );
 			} elseif ( is_callable( $function ) ) {
 				$var = call_user_func( $function, $var );
 			} else {
