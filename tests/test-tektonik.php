@@ -5,8 +5,6 @@
  * @package Tektonik
  */
 
-use Tektonik\Plates\Engine;
-
 /**
  * Sample test case.
  */
@@ -19,12 +17,12 @@ class TektonikTest extends WP_UnitTestCase {
 
 	private function build() {
 		Tektonik::clear_instance();
-		Tektonik::instance()->set_directory( [ __DIR__ . '/_data/tektonik' ] );
+		Tektonik::instance()->set_directory( array( __DIR__ . '/_data/tektonik' ) );
 	}
 
 	public function test_instance() {
 		$tektonik = Tektonik::instance();
-		$this->assertInstanceOf( Engine::class, $tektonik );
+		$this->assertInstanceOf( 'Tektonik\\Plates\\Engine', $tektonik );
 	}
 
 	public function test_default_folders_are_set() {
