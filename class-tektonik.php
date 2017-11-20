@@ -1,51 +1,46 @@
 <?php
-/*
-Plugin Name: Tektonik
-Plugin URI:  https://developer.wordpress.org/plugins/the-basics/
-Description: PHP Template Engine for WordPress
-Version:     20170405
-Author:      Jonathan Bernardi
-Author URI:  https://developer.wordpress.org/
-License:     GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: tektonik
-*/
+/**
+ * Main Tektonik class
+ *
+ * @package Akismet
+ */
 
+use Tektonik\Plates\Engine;
 use Tektonik\Plates\Template\Params;
 
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-
-spl_autoload_register( function ( $class ) {
-	if ( ! preg_match( "~^Tektonik\\\\Plates\\\\~", $class ) ) {
-		return;
-	}
-
-	$path = __DIR__ . DIRECTORY_SEPARATOR . 'plates' . DIRECTORY_SEPARATOR . str_replace( "\\", DIRECTORY_SEPARATOR,
-			preg_replace( "~^Tektonik\\\\Plates\\\\~", "", $class ) ) . '.php';
-	if ( is_file( $path ) ) {
-		include $path;
-	}
-} );
-
+/**
+ * Class Tektonik
+ */
 class Tektonik {
 	/**
-	 * @var Tektonik\Plates\Engine
+	 * Plates engine instance
+	 *
+	 * @var Engine
 	 */
 	private static $plates;
 
 	/**
-	 * @return \Tektonik\Plates\Engine
+	 * Initializes Plates engine.
+	 *
+	 * @return Engine
 	 */
 	public static function instance() {
 		if ( ! self::$plates ) {
-			self::$plates = new Tektonik\Plates\Engine(
-				self::getDefaultTemplateDirectories(),
+			self::$plates = new Engine(
+				self::get_default_template_directories(),
 				'phtml'
 			);
-			do_action( 'tektonic_init', self::$plates );
+			do_action( 'tektonik_init', self::$plates );
 		}
 
 		return self::$plates;
+	}
+
+	/**
+	 * Clears out initialized instance of engine to help for testing
+	 */
+	public static function clear_instance() {
+		self::$plates = null;
 	}
 
 	/**
@@ -53,7 +48,7 @@ class Tektonik {
 	 *
 	 * @return array
 	 */
-	private static function getDefaultTemplateDirectories() {
+	private static function get_default_template_directories() {
 		$directories = [];
 		if ( is_dir( get_stylesheet_directory() . '/tektonik' ) ) {
 			$directories[] = get_stylesheet_directory() . '/tektonik';
@@ -74,13 +69,13 @@ class Tektonik {
 	 * Call from your plugin file to activate
 	 * Tektonik::addPlugin( 'pluginname', plugin_dir_path( __FILE__ ) )
 	 *
-	 * @param string $namespace Plugin namespace
-	 * @param string $directory Path to the plugin directory. Should end in slash. Recommended to use plugin_dir_path()
+	 * @param string $namespace Plugin namespace.
+	 * @param string $directory Path to the plugin directory. Should end in slash. Recommended to use plugin_dir_path().
 	 *
 	 * @see plugin_dir_path
 	 */
-	public static function addPlugin( $namespace, $directory ) {
-		self::instance()->addFolder( $namespace, $directory . 'tektonik', false );
+	public static function add_plugin( $namespace, $directory ) {
+		self::instance()->add_folder( $namespace, $directory . 'tektonik', false );
 	}
 
 	/**
@@ -92,19 +87,17 @@ class Tektonik {
 	 * Fetch a plugin template
 	 * Tektonik::fetch('pluginname::templatename', ['name' => 'Bob']);
 	 *
-	 * @param string $name
-	 * @param array  $params
+	 * @param string $name The template to render.
+	 * @param array  $params The parameters to pass to the template.
 	 *
 	 * @return string
-	 * @throws \Throwable
-	 * @throws \Exception
 	 */
 	public static function fetch( $name, array $params = [] ) {
-
 		$template = self::instance()->make( $name );
-		do_action( 'tektonic_template', $template );
+		$template = apply_filters( 'tektonik_template', $template );
+
 		$obj = new Params( $params );
-		do_action( 'tektonic_render', $template, $obj );
+		$obj = apply_filters( 'tektonik_render', $obj, $template );
 
 		return $template->render( $obj->getParams() );
 	}
@@ -118,11 +111,8 @@ class Tektonik {
 	 * Render a plugin template
 	 * Tektonik::render('pluginname::templatename', ['name' => 'Bob']);
 	 *
-	 * @param string $name
-	 * @param array  $params
-	 *
-	 * @throws \Exception
-	 * @throws \Throwable
+	 * @param string $name The template to render.
+	 * @param array  $params The parameters to pass to the template.
 	 */
 	public static function render( $name, array $params = [] ) {
 		echo self::fetch( $name, $params );
