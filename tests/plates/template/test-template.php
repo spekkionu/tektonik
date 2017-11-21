@@ -55,10 +55,13 @@ class TemplateTest extends WP_UnitTestCase {
 	{
 		$this->assertEquals($this->template->render(array('name' => 'Jonathan')), 'Hello Jonathan');
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testRenderDoesNotExist()
 	{
 		$template = new \Tektonik\Plates\Template\Template($this->engine, 'does_not_exist');
-		$this->setExpectedException('LogicException');
 		$template->render();
 	}
 	public function testRenderException()
@@ -135,9 +138,12 @@ class TemplateTest extends WP_UnitTestCase {
 		$template = new \Tektonik\Plates\Template\Template($this->engine, 'batch');
 		$this->assertEquals($template->render(), 'jonathan');
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testBatchFunctionWithInvalidFunction()
 	{
-		$this->setExpectedException('LogicException', 'The batch function could not find the "function_that_does_not_exist" function.');
 		$template = new \Tektonik\Plates\Template\Template($this->engine, 'batch-error');
 		$template->render();
 	}

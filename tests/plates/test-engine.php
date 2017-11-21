@@ -63,8 +63,10 @@ class EngineTest extends WP_UnitTestCase {
 		$this->engine->add_folder( 'name', $this->path );
 	}
 
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testAddFolderWithInvalidDirectory() {
-		$this->setExpectedException( 'LogicException' );
 		$this->engine->add_folder( 'namespace', $this->path . DIRECTORY_SEPARATOR  . 'does_not_exist' );
 	}
 

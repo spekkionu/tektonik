@@ -23,15 +23,21 @@ class FoldersTest extends WP_UnitTestCase {
 		$this->assertInstanceOf('Tektonik\Plates\Template\Folders', $this->folders->add('name', $this->path));
 		$this->assertEquals($this->folders->get('name')->get_path(), $this->path);
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testAddFolderWithNamespaceConflict()
 	{
-		$this->setExpectedException('LogicException', 'The template folder "name" is already being used.');
 		$this->folders->add('name', $this->path);
 		$this->folders->add('name', $this->path);
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testAddFolderWithInvalidDirectory()
 	{
-		$this->setExpectedException('LogicException');
 		$this->folders->add('name', $this->path . DIRECTORY_SEPARATOR . 'does_not_exist' );
 	}
 	public function testRemoveFolder()
@@ -41,9 +47,12 @@ class FoldersTest extends WP_UnitTestCase {
 		$this->assertInstanceOf('Tektonik\Plates\Template\Folders', $this->folders->remove('folder'));
 		$this->assertEquals($this->folders->exists('folder'), false);
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testRemoveFolderWithInvalidDirectory()
 	{
-		$this->setExpectedException('LogicException', 'The template folder "name" was not found.');
 		$this->folders->remove('name');
 	}
 	public function testGetFolder()
@@ -52,9 +61,12 @@ class FoldersTest extends WP_UnitTestCase {
 		$this->assertInstanceOf('Tektonik\Plates\Template\Folder', $this->folders->get('name'));
 		$this->assertEquals($this->folders->get('name')->get_path(), $this->path);
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testGetNonExistentFolder()
 	{
-		$this->setExpectedException('LogicException', 'The template folder "name" was not found.');
 		$this->assertInstanceOf('Tektonik\Plates\Template\Folder', $this->folders->get('name'));
 	}
 	public function testFolderExists()

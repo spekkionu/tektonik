@@ -28,9 +28,12 @@ class FolderTest extends WP_UnitTestCase {
 		$this->folder->set_path($this->path . DIRECTORY_SEPARATOR . 'plugin');
 		$this->assertEquals($this->folder->get_path(), $this->path . DIRECTORY_SEPARATOR . 'plugin');
 	}
+
+	/**
+	 * @expectedException InvalidArgumentException
+	 */
 	public function testSetInvalidPath()
 	{
-		$this->setExpectedException('InvalidArgumentException');
 		$this->folder->set_path($this->path . DIRECTORY_SEPARATOR . 'does_not_exist' );
 	}
 	public function testSetAndGetFallback()
