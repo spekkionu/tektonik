@@ -99,7 +99,7 @@ class Tektonik {
 		$obj = new Params( $params );
 		$obj = apply_filters( 'tektonik_render', $obj, $template );
 
-		return $template->render( $obj->getParams() );
+		return $template->render( $obj->all() );
 	}
 
 	/**

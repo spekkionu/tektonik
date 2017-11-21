@@ -24,7 +24,13 @@ require_once $_tests_dir . '/includes/functions.php';
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/tektonik.php';
 }
+
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';
+
+if ( ! defined( 'TEST_DATA_DIR' ) ) {
+	define( 'TEST_DATA_DIR', __DIR__ . DIRECTORY_SEPARATOR . '_data' );
+}
+require_once(TEST_DATA_DIR . '/extension/TestExtension.php');

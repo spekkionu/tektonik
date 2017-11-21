@@ -83,7 +83,7 @@ class Params implements ArrayAccess, Countable, IteratorAggregate, Serializable 
 	 *
 	 * @return array
 	 */
-	public function getParams() {
+	public function all() {
 		return $this->params;
 	}
 
@@ -92,7 +92,7 @@ class Params implements ArrayAccess, Countable, IteratorAggregate, Serializable 
 	 *
 	 * @param array $params The variable params.
 	 */
-	public function setParams( array $params = array() ) {
+	public function replace( array $params = array() ) {
 		$this->params = $params;
 	}
 
