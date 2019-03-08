@@ -25,13 +25,6 @@ class TektonikTest extends WP_UnitTestCase {
 		$this->assertInstanceOf( 'Tektonik\\Plates\\Engine', $tektonik );
 	}
 
-	public function test_default_folders_are_set() {
-		Tektonik::clear_instance();
-		$folders = Tektonik::instance()->get_directory();
-		$this->assertCount( 1, $folders );
-		$this->assertStringEndsWith( 'tektonik' . DIRECTORY_SEPARATOR . 'tektonik', $folders[0] );
-	}
-
 	public function test_add_plugin_support() {
 		Tektonik::add_plugin( 'test', __DIR__ . '/_data/' );
 		$folders = Tektonik::instance()->get_folders();
