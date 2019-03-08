@@ -144,8 +144,9 @@ class Template {
 	public function render( array $data = array() ) {
 		$this->data( $data );
 		unset( $data );
+		// phpcs:disable
 		extract( $this->data, EXTR_OVERWRITE );
-
+		// phpcs:enable
 		if ( ! $this->exists() ) {
 			throw new InvalidArgumentException(
 				'The template "' . $this->name->get_name() . '" could not be found at "' . $this->path() . '".'
@@ -153,7 +154,7 @@ class Template {
 		}
 
 		try {
-			$level = ob_get_level();
+			$__level = ob_get_level();
 			ob_start();
 
 			include $this->path();
@@ -168,13 +169,13 @@ class Template {
 
 			return $content;
 		} catch ( Throwable $e ) {
-			while ( ob_get_level() > $level ) {
+			while ( ob_get_level() > $__level ) {
 				ob_end_clean();
 			}
 
 			throw $e;
 		} catch ( Exception $e ) {
-			while ( ob_get_level() > $level ) {
+			while ( ob_get_level() > $__level ) {
 				ob_end_clean();
 			}
 
