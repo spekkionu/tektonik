@@ -144,9 +144,8 @@ class Template {
 	public function render( array $data = array() ) {
 		$this->data( $data );
 		unset( $data );
-		// phpcs:disable
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $this->data, EXTR_OVERWRITE );
-		// phpcs:enable
 		if ( ! $this->exists() ) {
 			throw new InvalidArgumentException(
 				'The template "' . $this->name->get_name() . '" could not be found at "' . $this->path() . '".'
